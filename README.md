@@ -1,6 +1,6 @@
-# dataworks-repo-template-docker
+# docker-ecs-service-discovery
 
-## Description
+## Repo for the Docker ECS service discovery service for use with Prometheus
 
 This repo contains Makefile, and Dockerfile to fit the standard pattern.
 This repo is a base to create new Docker image repos, adding the githooks submodule, making the repo ready for use.
