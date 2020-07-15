@@ -1,8 +1,9 @@
-FROM dwpdigital/python-boto-behave
+FROM python:3.6-alpine
 
 ARG VERSION=1.2
 
-RUN apk add --update --no-cache curl
+RUN apk add --update --no-cache curl && \
+    pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org boto3
 
 COPY entrypoint.sh /bin/entrypoint.sh
 
