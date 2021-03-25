@@ -1,6 +1,10 @@
 name: High vulns Snyk PR scan
 
-on: pull_request
+on:
+  pull_request:
+    paths-ignore:
+      - "ci/**"
+      - "**/*.md"
 
 env:
   IMAGE_NAME: dwpdigital/ecs-service-discovery
