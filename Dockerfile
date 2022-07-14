@@ -1,4 +1,4 @@
-FROM python:3.6-alpine
+FROM python:3.9.12-alpine
 
 RUN apk add --update --no-cache curl && \
     pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org boto3
