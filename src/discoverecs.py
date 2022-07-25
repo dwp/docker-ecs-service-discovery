@@ -77,6 +77,10 @@ class TaskInfo:
         self.container_instance = None
         self.ec2_instance = None
 
+    def __repr__(self):
+        return f"""<TaskInfo task:{self.task}, task_definition:{self.task_definition}, 
+                container_instance:{self.container_instance}, ec2_instance:{self.ec2_instance}>"""
+
     def valid(self):
         if "FARGATE" in self.task_definition.get("requiresCompatibilities", ""):
             return self.task_definition
@@ -191,7 +195,7 @@ class TaskInfoDiscoverer:
         safe_task_infos = []
         for task in task_infos:
             if "containerInstanceArn" not in task.task:
-                logger.error(f"{task.task}")
+                logger.error(f"{task}")
             else:
                 safe_task_infos.append(task)
 
@@ -218,11 +222,18 @@ class TaskInfoDiscoverer:
                         instances[i["InstanceId"]] = i
             return instances
 
+        safe_task_infos = []
+        for task in task_infos:
+            if "ec2InstanceId" not in task.container_instance:
+                logger.error(f"{task}")
+            else:
+                safe_task_infos.append(task)
+
         instance_ids = list(
-            set(map(lambda t: t.container_instance["ec2InstanceId"], task_infos))
+            set(map(lambda t: t.container_instance["ec2InstanceId"], safe_task_infos))
         )
         instances = self.ec2_instance_cache.get_dict(instance_ids, fetcher)
-        for t in task_infos:
+        for t in safe_task_infos:
             t.ec2_instance = dict_get(
                 instances, t.container_instance["ec2InstanceId"], None
             )
