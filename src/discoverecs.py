@@ -74,7 +74,7 @@ class TaskInfo:
     def __init__(self, task):
         self.task = task
         self.task_definition = None
-        self.container_instance = None
+        self.container_instance = {}
         self.ec2_instance = None
 
     def __repr__(self):
@@ -188,6 +188,7 @@ class TaskInfoDiscoverer:
                 result = self.ecs_client.describe_container_instances(
                     cluster=cluster_arn, containerInstances=arns
                 )
+                logger.info(result)
                 for i in dict_get(result, "containerInstances", []):
                     instances[i["containerInstanceArn"]] = i
             return instances
