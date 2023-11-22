@@ -1,3 +1,5 @@
+# DO NOT USE THIS REPO - MIGRATED TO GITLAB
+
 # Rebuild of ecs-service-discovery Docker image for Dataworks
 
 This tool provides Prometheus service discovery for Docker containers running on AWS ECS. You can easily instrument your app using a Prometheus client and enable discovery adding an ENV variable at the Service Task Definition. Your container will then be added to the list of Prometheus targets to be scraped.
